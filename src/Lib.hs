@@ -1,8 +1,9 @@
 module Lib
     ( tessitura,
       computeInterval,
-      Note,
-      Interval
+      computeNote,
+      Note (..),
+      Interval (..)
     ) where
 
 import Data.List (elemIndex)
@@ -30,3 +31,12 @@ computeInterval' _ Nothing = Nothing
 computeInterval' (Just x) (Just y)
     | x <= y = Just $ toEnum (y - x)
     | otherwise = Just $ toEnum (x - y)
+
+computeNote :: FullNote -> Interval -> Maybe FullNote
+computeNote note interval = computeNote' (note `elemIndex` tessitura) (fromEnum interval)
+
+computeNote' :: Maybe Int -> Int -> Maybe FullNote
+computeNote' Nothing _ = Nothing
+computeNote' (Just x) y
+    | x + y <= length tessitura = Just $ tessitura !! (x + y)
+    | otherwise = Nothing
