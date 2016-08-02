@@ -2,6 +2,7 @@ module Lib
     ( tessitura,
       computeInterval,
       computeNote,
+      FullNote,
       Note (..),
       Interval (..)
     ) where
